@@ -5,12 +5,10 @@
  */
 
 package DAO;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import project.Student;
-
 /**
  *
  * @author Long
@@ -46,7 +44,6 @@ public class SVDAO {
         } finally {
             session.close();
         }
-        
         return true;
     }
 }

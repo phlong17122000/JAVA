@@ -47,7 +47,7 @@ public class CSV {
             while ((line = br.readLine()) != null) {
                 Student temp;
                 ArrayList<String> chuoi = parseCsvLine(line);
-                temp=new Student(Integer.valueOf(chuoi.get(0)),chuoi.get(1),chuoi.get(2),chuoi.get(3),chuoi.get(4));
+                temp=new Student(chuoi.get(1),chuoi.get(2),chuoi.get(3),chuoi.get(4));
                 a.addElement(temp);
             }
         }catch (IOException e)

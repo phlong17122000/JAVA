@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 18, 2020 10:24:37 PM by Hibernate Tools 3.6.0 -->
+<!-- Generated Jun 19, 2020 8:32:03 PM by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="project.Student" table="SinhVien" schema="dbo" catalog="QLSV">
-        <id name="stt" type="int">
-            <column name="STT" />
+        <id name="mssv" type="string">
+            <column name="MSSV" length="10" />
             <generator class="assigned" />
         </id>
-        <property name="mssv" type="string">
-            <column name="MSSV" length="10" />
-        </property>
         <property name="name" type="string">
             <column name="HOTEN" />
         </property>

@@ -33,6 +33,7 @@ public class giaovu extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         Import = new javax.swing.JButton();
+        addSV = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +49,14 @@ public class giaovu extends javax.swing.JFrame {
             }
         });
 
+        addSV.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        addSV.setText("Thêm SV");
+        addSV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addSVMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -55,7 +64,9 @@ public class giaovu extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(Import)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Import, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -65,7 +76,9 @@ public class giaovu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Import)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addSV)
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         pack();
@@ -80,7 +93,10 @@ public class giaovu extends javax.swing.JFrame {
        String Malop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP",1);
        String diachi=JOptionPane.showInputDialog(this,"File csv: ","NHẬP ĐỊA CHỈ FILE CSV",1);
        arrayStudent array=new arrayStudent();
-       array.setA(array.getCsv().readCsvFile(diachi));
+       if (Malop !=null && diachi !=null)
+       {
+        array.setA(array.getCsv().readCsvFile(diachi));
+       }
        for (int i=0;i<array.getA().size();i++)
        {
            array.getA().get(i).setMalop(Malop);
@@ -88,6 +104,32 @@ public class giaovu extends javax.swing.JFrame {
            boolean kq = svdao.themSV(array.getA().get(i));
        }
     }//GEN-LAST:event_ImportMouseClicked
+
+    private void addSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSVMouseClicked
+        String Malop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP SINH VIÊN",1);
+        String Mssv=JOptionPane.showInputDialog(this,"MSSV: ","NHẬP SINH VIÊN",1);
+        String Name=JOptionPane.showInputDialog(this,"TÊN: ","NHẬP SINH VIÊN",1);
+        String Cmnd=JOptionPane.showInputDialog(this,"CMND: ","NHẬP SINH VIÊN",1);
+        Object[] selections={"Nam","Nữ"};
+        Object Sx=JOptionPane.showInputDialog(this,"GIỚI TÍNH:","NHẬP SINH VIÊN",1,null,selections,selections[0]);
+        String Sex = null;
+        if (Sx != null)
+            Sex=Sx.toString();
+        Student st=new Student();
+        if (Malop !=null && Mssv !=null && Name !=null && Cmnd !=null && Sex!=null)
+        {
+            st.setMalop(Malop);
+            st.setMssv(Mssv);
+            st.setName(Name);
+            st.setCmnd(Cmnd);
+            st.setSex(Sex);
+            SVDAO svdao=new SVDAO();
+           boolean kq = svdao.themSV(st);
+           JOptionPane.showMessageDialog(this, "THÊM SV THÀNH CÔNG");
+        }
+        else JOptionPane.showMessageDialog(this, "THÊM SV THẤT BẠI");
+ 
+    }//GEN-LAST:event_addSVMouseClicked
 
     /**
      * @param args the command line arguments
@@ -126,6 +168,7 @@ public class giaovu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Import;
+    private javax.swing.JButton addSV;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

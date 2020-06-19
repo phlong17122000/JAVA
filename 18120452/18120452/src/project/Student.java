@@ -11,26 +11,30 @@ package project;
  * @author Long
  */
 public class Student {
-    private int stt;
     private String mssv;
     private String name;
     private String sex;
     private String cmnd;
     private String malop;
 
-    public Student(int stt, String mssv, String name, String sex, String cmnd) {
-        this.stt = stt;
+    public Student(String mssv, String name, String sex, String cmnd) {
         this.mssv = mssv;
         this.name = name;
         this.sex = sex;
         this.cmnd = cmnd;
         this.malop="";
     }
-
-    public int getStt() {
-        return stt;
+    public Student()
+    {
+        
     }
-
+    public Student(String mssv, String name, String sex, String cmnd, String malop) {
+        this.mssv = mssv;
+        this.name = name;
+        this.sex = sex;
+        this.cmnd = cmnd;
+        this.malop = malop;
+    }
     public String getMssv() {
         return mssv;
     }
@@ -47,13 +51,10 @@ public class Student {
         return cmnd;
     }
 
-    public void setStt(int stt) {
-        this.stt = stt;
-    }
-
     public void setMssv(String mssv) {
         this.mssv = mssv;
     }
+    
 
     public void setName(String name) {
         this.name = name;
