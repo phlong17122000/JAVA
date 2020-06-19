@@ -5,38 +5,42 @@
  */
 
 package DAO;
+
+import entities.Tkb;
+import entities.TkbId;
+import java.io.Serializable;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import entities.SinhVien;
+
 /**
  *
  * @author Long
  */
-public class SVDAO {
-    public static SinhVien find(String MSSV)
+public class TKBDAO {
+     public static Tkb find(TkbId ID)
     {
-        SinhVien sv=null;
+        Tkb tkb=null;
         Session session=HibernateUtil.getSessionFactory().openSession();
         try{
-            sv=(SinhVien) session.get(SinhVien.class,MSSV);
+            tkb=(Tkb) session.get(Tkb.class, (Serializable) ID);
         } catch (HibernateException ex)
         {
             System.err.println(ex);
         } finally{
             session.close();
         }
-        return sv;
+        return tkb;
     }
-    public boolean themSV(SinhVien sv){
+    public boolean themTKB(Tkb tkb){
         Session session=HibernateUtil.getSessionFactory().openSession();
-        if (SVDAO.find(sv.getMssv())!=null){
+        if (TKBDAO.find(tkb.getId()) != null){
             return false;
         }
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.save(sv);
+            session.save(tkb);
             transaction.commit();
         } catch (HibernateException ex){
             transaction.rollback();

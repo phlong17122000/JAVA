@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 
-package project;
+package entities;
 
 /**
  *
  * @author Long
  */
+import entities.SinhVien;
 import java.awt.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -36,18 +37,18 @@ public class CSV {
         }
         return result;
     }
-    public Vector<Student> readCsvFile(String address)
+    public Vector<SinhVien> readCsvFileDSSV(String address)
     {
         BufferedReader br=null;
-        Vector<Student> a = new Vector<Student>();
+        Vector<SinhVien> a = new Vector<SinhVien>();
         try{
             String line;
             br =new BufferedReader(new FileReader(address));
             line = br.readLine();
             while ((line = br.readLine()) != null) {
-                Student temp;
+                SinhVien temp;
                 ArrayList<String> chuoi = parseCsvLine(line);
-                temp=new Student(chuoi.get(1),chuoi.get(2),chuoi.get(3),chuoi.get(4));
+                temp=new SinhVien(chuoi.get(1),chuoi.get(2),chuoi.get(3),chuoi.get(4));
                 a.addElement(temp);
             }
         }catch (IOException e)
@@ -63,9 +64,36 @@ public class CSV {
                 e.printStackTrace();;
             }
         }
-        //System.out.print("DOC CSV THANH CONG");
-        //for (int i=0;i<a.size();i++)
-         //   System.out.print(a.get(i).getName());
+        return a;
+    }
+    public Vector<Tkb> readCsvFileTKB(String address)
+    {
+        BufferedReader br=null;
+        Vector<Tkb> a = new Vector<Tkb>();
+        try{
+            String line;
+            br =new BufferedReader(new FileReader(address));
+            line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                Tkb temp;
+                ArrayList<String> chuoi = parseCsvLine(line);
+                TkbId Id=new TkbId("",chuoi.get(1));
+                temp=new Tkb(Id,chuoi.get(2),chuoi.get(3));
+                a.addElement(temp);
+            }
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try{
+                if (br!=null)
+                    br.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();;
+            }
+        }
         return a;
     }
 }

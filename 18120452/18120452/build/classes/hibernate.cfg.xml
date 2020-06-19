@@ -8,6 +8,9 @@
     <property name="hibernate.connection.password">1234</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="entities/Tk.hbm.xml"/>
+    <mapping resource="entities/LopDssv.hbm.xml"/>
+    <mapping resource="entities/Tkb.hbm.xml"/>
     <mapping resource="entities/SinhVien.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

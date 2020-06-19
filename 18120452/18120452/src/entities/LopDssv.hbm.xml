@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 19, 2020 9:15:53 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="entities.LopDssv" table="LOP_DSSV" schema="dbo" catalog="QLSV">
+        <composite-id name="id" class="entities.LopDssvId">
+            <key-property name="malop" type="string">
+                <column name="MALOP" length="10" />
+            </key-property>
+            <key-property name="mamon" type="string">
+                <column name="MAMON" length="10" />
+            </key-property>
+            <key-property name="mssv" type="string">
+                <column name="MSSV" length="10" />
+            </key-property>
+        </composite-id>
+        <property name="dgk" type="java.lang.Integer">
+            <column name="DGK" />
+        </property>
+        <property name="dck" type="java.lang.Integer">
+            <column name="DCK" />
+        </property>
+        <property name="dkhac" type="java.lang.Integer">
+            <column name="DKHAC" />
+        </property>
+        <property name="dtong" type="java.lang.Double">
+            <column name="DTONG" precision="53" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

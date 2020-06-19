@@ -4,31 +4,31 @@
  * and open the template in the editor.
  */
 
-package project;
+package entities;
 
 /**
  *
  * @author Long
  */
-public class Student {
+public class SinhVien {
     private String mssv;
     private String name;
     private String sex;
     private String cmnd;
     private String malop;
 
-    public Student(String mssv, String name, String sex, String cmnd) {
+    public SinhVien(String mssv, String name, String sex, String cmnd) {
         this.mssv = mssv;
         this.name = name;
         this.sex = sex;
         this.cmnd = cmnd;
         this.malop="";
     }
-    public Student()
+    public SinhVien()
     {
         
     }
-    public Student(String mssv, String name, String sex, String cmnd, String malop) {
+    public SinhVien(String mssv, String name, String sex, String cmnd, String malop) {
         this.mssv = mssv;
         this.name = name;
         this.sex = sex;

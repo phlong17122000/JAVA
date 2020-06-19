@@ -7,6 +7,11 @@
 package project;
 
 import DAO.SVDAO;
+import DAO.TKBDAO;
+import entities.CSV;
+import entities.SinhVien;
+import entities.Tkb;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,8 +37,9 @@ public class giaovu extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        Import = new javax.swing.JButton();
+        Import_DSSV = new javax.swing.JButton();
         addSV = new javax.swing.JButton();
+        Import_TKB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,11 +47,11 @@ public class giaovu extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("GIÁO VỤ");
 
-        Import.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        Import.setText("Import DSSV");
-        Import.addMouseListener(new java.awt.event.MouseAdapter() {
+        Import_DSSV.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        Import_DSSV.setText("Import DSSV");
+        Import_DSSV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ImportMouseClicked(evt);
+                Import_DSSVMouseClicked(evt);
             }
         });
 
@@ -57,6 +63,14 @@ public class giaovu extends javax.swing.JFrame {
             }
         });
 
+        Import_TKB.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        Import_TKB.setText("Import TKB");
+        Import_TKB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Import_TKBMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,8 +79,9 @@ public class giaovu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Import, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Import_DSSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Import_TKB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -75,35 +90,34 @@ public class giaovu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Import)
+                .addComponent(Import_DSSV)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addSV)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Import_TKB)
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ImportMouseClicked
-        //arrayStudent array=new arrayStudent();
-        //array.setA(array.getCsv().readCsvFile());
-        //giaovu_browser browser=new giaovu_browser();
-        //browser.setVisible(true);
-       //this.add(browser);
+    private void Import_DSSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Import_DSSVMouseClicked
        String Malop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP",1);
-       String diachi=JOptionPane.showInputDialog(this,"File csv: ","NHẬP ĐỊA CHỈ FILE CSV",1);
-       arrayStudent array=new arrayStudent();
+       String diachi=JOptionPane.showInputDialog(this,"File csv: ","NHẬP ĐỊA CHỈ FILE DSSV",1);
+       
+       Vector<SinhVien>  a=new Vector<SinhVien>();
+       CSV csv =new CSV();
        if (Malop !=null && diachi !=null)
        {
-        array.setA(array.getCsv().readCsvFile(diachi));
+            a=csv.readCsvFileDSSV(diachi);
+            for (int i=0;i<a.size();i++)
+            {
+                a.get(i).setMalop(Malop);
+                SVDAO svdao=new SVDAO();
+                boolean kq = svdao.themSV(a.get(i));
+            }
        }
-       for (int i=0;i<array.getA().size();i++)
-       {
-           array.getA().get(i).setMalop(Malop);
-           SVDAO svdao=new SVDAO();
-           boolean kq = svdao.themSV(array.getA().get(i));
-       }
-    }//GEN-LAST:event_ImportMouseClicked
+    }//GEN-LAST:event_Import_DSSVMouseClicked
 
     private void addSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSVMouseClicked
         String Malop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP SINH VIÊN",1);
@@ -115,7 +129,7 @@ public class giaovu extends javax.swing.JFrame {
         String Sex = null;
         if (Sx != null)
             Sex=Sx.toString();
-        Student st=new Student();
+        SinhVien st=new SinhVien();
         if (Malop !=null && Mssv !=null && Name !=null && Cmnd !=null && Sex!=null)
         {
             st.setMalop(Malop);
@@ -130,6 +144,23 @@ public class giaovu extends javax.swing.JFrame {
         else JOptionPane.showMessageDialog(this, "THÊM SV THẤT BẠI");
  
     }//GEN-LAST:event_addSVMouseClicked
+
+    private void Import_TKBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Import_TKBMouseClicked
+       String Malop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP TKB",1);
+       String diachi=JOptionPane.showInputDialog(this,"File csv: ","NHẬP ĐỊA CHỈ FILE TKB",1);
+       Vector<Tkb>  a=new Vector<Tkb>();
+       CSV csv =new CSV();
+       if (Malop !=null && diachi !=null)
+       {
+            a=csv.readCsvFileTKB(diachi);
+            for (int i=0;i<a.size();i++)
+            {
+                a.get(i).getId().setMalop(Malop);
+                TKBDAO tkbdao=new TKBDAO();
+                boolean kq = tkbdao.themTKB(a.get(i));
+            }
+       }
+    }//GEN-LAST:event_Import_TKBMouseClicked
 
     /**
      * @param args the command line arguments
@@ -167,7 +198,8 @@ public class giaovu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Import;
+    private javax.swing.JButton Import_DSSV;
+    private javax.swing.JButton Import_TKB;
     private javax.swing.JButton addSV;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
