@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hcmus.edu.hibernate;
+
+package project;
+
+import DAO.SVDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,11 +36,11 @@ public class giaovu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("GIÁO VỤ");
 
-        Import.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        Import.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         Import.setText("Import DSSV");
         Import.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -50,7 +54,7 @@ public class giaovu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(27, 27, 27)
                 .addComponent(Import)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -61,17 +65,28 @@ public class giaovu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Import)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
-
-        Import.getAccessibleContext().setAccessibleName("Import");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ImportMouseClicked
-        arrayStudent array=new arrayStudent();
-        array.setA(array.getCsv().readCsvFile());
+        //arrayStudent array=new arrayStudent();
+        //array.setA(array.getCsv().readCsvFile());
+        //giaovu_browser browser=new giaovu_browser();
+        //browser.setVisible(true);
+       //this.add(browser);
+       String Malop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP",1);
+       String diachi=JOptionPane.showInputDialog(this,"File csv: ","NHẬP ĐỊA CHỈ FILE CSV",1);
+       arrayStudent array=new arrayStudent();
+       array.setA(array.getCsv().readCsvFile(diachi));
+       for (int i=0;i<array.getA().size();i++)
+       {
+           array.getA().get(i).setMalop(Malop);
+           SVDAO svdao=new SVDAO();
+           boolean kq = svdao.themSV(array.getA().get(i));
+       }
     }//GEN-LAST:event_ImportMouseClicked
 
     /**

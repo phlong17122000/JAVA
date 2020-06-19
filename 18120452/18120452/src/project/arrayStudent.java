@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hcmus.edu.hibernate;
+
+package project;
 
 /**
  *
@@ -30,4 +31,9 @@ public class arrayStudent {
     public CSV getCsv() {
         return csv;
     }
+
+    public Vector<Student> getA() {
+        return a;
+    }
+    
 }

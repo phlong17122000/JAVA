@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hcmus.edu.hibernate;
 
+package project;
+
+/**
+ *
+ * @author Long
+ */
 import java.awt.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -58,9 +63,9 @@ public class CSV {
                 e.printStackTrace();;
             }
         }
-        System.out.print("DOC CSV THANH CONG");
-        for (int i=0;i<a.size();i++)
-            System.out.print(a.get(i).getName());
+        //System.out.print("DOC CSV THANH CONG");
+        //for (int i=0;i<a.size();i++)
+         //   System.out.print(a.get(i).getName());
         return a;
     }
 }

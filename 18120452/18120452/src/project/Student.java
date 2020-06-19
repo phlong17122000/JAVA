@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hcmus.edu.hibernate;
+
+package project;
 
 /**
  *
@@ -15,6 +16,7 @@ public class Student {
     private String name;
     private String sex;
     private String cmnd;
+    private String malop;
 
     public Student(int stt, String mssv, String name, String sex, String cmnd) {
         this.stt = stt;
@@ -22,6 +24,7 @@ public class Student {
         this.name = name;
         this.sex = sex;
         this.cmnd = cmnd;
+        this.malop="";
     }
 
     public int getStt() {
@@ -63,5 +66,14 @@ public class Student {
     public void setCmnd(String cmnd) {
         this.cmnd = cmnd;
     }
-     
+
+    public String getMalop() {
+        return malop;
+    }
+
+    public void setMalop(String malop) {
+        this.malop = malop;
+    }
+    
+    
 }
