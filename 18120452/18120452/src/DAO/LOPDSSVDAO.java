@@ -5,58 +5,61 @@
  */
 
 package DAO;
-import entities.SinhVien;
-import java.util.List;
+
+import entities.LopDssv;
+import entities.LopDssvId;
+import java.io.Serializable;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 /**
  *
  * @author Long
  */
-public class SVDAO {
-    public static List<SinhVien> layDSSV_MaLop(String MaLop)
+public class LOPDSSVDAO {
+     public static LopDssv find(LopDssvId ID)
     {
-        List<SinhVien> ds=null;
-        Session session=HibernateUtil.getSessionFactory().openSession();
-        try
-        {
-            String hql;
-            hql = "select sv from SinhVien sv where sv.malop='"+MaLop+"'";
-            Query query=session.createQuery(hql);
-            ds=query.list();
-        } catch (HibernateException ex)
-        {
-            System.err.println(ex);
-        } finally{
-            session.close();
-        }
-        return ds;
-    }
-    public static SinhVien find(String MSSV)
-    {
-        SinhVien sv=null;
+        LopDssv lopdssv=null;
         Session session=HibernateUtil.getSessionFactory().openSession();
         try{
-            sv=(SinhVien) session.get(SinhVien.class,MSSV);
+            lopdssv=(LopDssv) session.get(LopDssv.class, (Serializable) ID);
         } catch (HibernateException ex)
         {
             System.err.println(ex);
         } finally{
             session.close();
         }
-        return sv;
+        return lopdssv;
     }
-    public boolean themSV(SinhVien sv){
+    public boolean themLOPDSSV(LopDssv lopdssv){
         Session session=HibernateUtil.getSessionFactory().openSession();
-        if (SVDAO.find(sv.getMssv())!=null){
+        if (LOPDSSVDAO.find(lopdssv.getId()) != null){
             return false;
         }
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.save(sv);
+            session.save(lopdssv);
+            transaction.commit();
+        } catch (HibernateException ex){
+            transaction.rollback();
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return true;
+    }
+    public boolean xoaLOPDSSV(LopDssvId ID){
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        LopDssv lopdssv=LOPDSSVDAO.find(ID);
+        if (lopdssv == null){
+            return false;
+        }
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.delete(lopdssv);
             transaction.commit();
         } catch (HibernateException ex){
             transaction.rollback();

@@ -6,11 +6,16 @@
 
 package project;
 
+import DAO.LOPDSSVDAO;
 import DAO.SVDAO;
 import DAO.TKBDAO;
 import entities.CSV;
+import entities.LopDssv;
+import entities.LopDssvId;
 import entities.SinhVien;
 import entities.Tkb;
+import entities.TkbId;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
@@ -40,6 +45,8 @@ public class giaovu extends javax.swing.JFrame {
         Import_DSSV = new javax.swing.JButton();
         addSV = new javax.swing.JButton();
         Import_TKB = new javax.swing.JButton();
+        DK_Button = new javax.swing.JButton();
+        Huy_Button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +78,21 @@ public class giaovu extends javax.swing.JFrame {
             }
         });
 
+        DK_Button.setText("Đăng Ký Môn");
+        DK_Button.setToolTipText("");
+        DK_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DK_ButtonMouseClicked(evt);
+            }
+        });
+
+        Huy_Button.setText("Hủy Môn");
+        Huy_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Huy_ButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,7 +103,9 @@ public class giaovu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Import_DSSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(addSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Import_TKB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Import_TKB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DK_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Huy_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -95,7 +119,11 @@ public class giaovu extends javax.swing.JFrame {
                 .addComponent(addSV)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Import_TKB)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(DK_Button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Huy_Button)
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         pack();
@@ -159,8 +187,63 @@ public class giaovu extends javax.swing.JFrame {
                 TKBDAO tkbdao=new TKBDAO();
                 boolean kq = tkbdao.themTKB(a.get(i));
             }
+            SVDAO svdao=new SVDAO();
+            List<SinhVien> dssv= svdao.layDSSV_MaLop(Malop);
+            for (int i=0;i<a.size();i++)
+            {
+                for(int j=0;j<dssv.size();j++)
+                {
+                    LopDssvId id=new LopDssvId(Malop,a.get(i).getId().getMamon(),dssv.get(j).getMssv());
+                    LopDssv lopdssv=new LopDssv(id);
+                    LOPDSSVDAO lopdssvdao=new LOPDSSVDAO();
+                    boolean kq= lopdssvdao.themLOPDSSV(lopdssv);
+                }
+            }
        }
     }//GEN-LAST:event_Import_TKBMouseClicked
+
+    private void DK_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DK_ButtonMouseClicked
+        String MSSV=JOptionPane.showInputDialog(this,"MSSV: ","NHẬP MSSV",1);
+        if (SVDAO.find(MSSV)!=null)
+        {
+            String MaLop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP:",1);
+            String MaMon=JOptionPane.showInputDialog(this,"MÔN: ","NHẬP MÃ MÔN:",1);
+            TkbId id=new TkbId(MaLop,MaMon);
+            if (TKBDAO.find(id)!=null)
+            {
+                LopDssvId lopdssvid=new LopDssvId(MaLop,MaMon,MSSV);
+                LopDssv lopdssv=new LopDssv(lopdssvid);
+                LOPDSSVDAO lopdssvdao=new LOPDSSVDAO();
+                boolean kq= lopdssvdao.themLOPDSSV(lopdssv);
+                JOptionPane.showMessageDialog(this, "Đăng ký thành công","THÔNG BÁO",1);
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Lớp không tồn tại","LỖI",2);
+        }
+        else
+            JOptionPane.showMessageDialog(this, "MSSV không tồn tại","LỖI",2);
+
+    }//GEN-LAST:event_DK_ButtonMouseClicked
+
+    private void Huy_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Huy_ButtonMouseClicked
+        String MSSV=JOptionPane.showInputDialog(this,"MSSV: ","NHẬP MSSV",1);
+        if (SVDAO.find(MSSV)!=null)
+        {
+            String MaLop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP:",1);
+            String MaMon=JOptionPane.showInputDialog(this,"MÔN: ","NHẬP MÃ MÔN:",1);
+            LopDssvId lopdssvid=new LopDssvId(MaLop,MaMon,MSSV);
+            if (LOPDSSVDAO.find(lopdssvid)!=null)
+            {
+                LOPDSSVDAO lopdssvdao=new LOPDSSVDAO();
+                boolean kq= lopdssvdao.xoaLOPDSSV(lopdssvid);
+                JOptionPane.showMessageDialog(this, "Hủy thành công","THÔNG BÁO",1);
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Sinh viên hiện không đăng ký lớp này","LỖI",2);
+        }
+        else
+            JOptionPane.showMessageDialog(this, "MSSV không tồn tại","LỖI",2);
+    }//GEN-LAST:event_Huy_ButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -198,6 +281,8 @@ public class giaovu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DK_Button;
+    private javax.swing.JButton Huy_Button;
     private javax.swing.JButton Import_DSSV;
     private javax.swing.JButton Import_TKB;
     private javax.swing.JButton addSV;

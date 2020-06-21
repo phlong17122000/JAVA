@@ -30,6 +30,8 @@
                   <Component id="Import_DSSV" max="32767" attributes="0"/>
                   <Component id="addSV" max="32767" attributes="0"/>
                   <Component id="Import_TKB" max="32767" attributes="0"/>
+                  <Component id="DK_Button" max="32767" attributes="0"/>
+                  <Component id="Huy_Button" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -46,7 +48,11 @@
               <Component id="addSV" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="Import_TKB" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="150" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="DK_Button" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="Huy_Button" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="82" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,6 +98,23 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Import_TKBMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="DK_Button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng K&#xfd; M&#xf4;n"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DK_ButtonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Huy_Button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="H&#x1ee7;y M&#xf4;n"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Huy_ButtonMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
