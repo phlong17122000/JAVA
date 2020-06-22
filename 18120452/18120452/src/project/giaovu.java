@@ -47,6 +47,8 @@ public class giaovu extends javax.swing.JFrame {
         Import_TKB = new javax.swing.JButton();
         DK_Button = new javax.swing.JButton();
         Huy_Button = new javax.swing.JButton();
+        DSLop_Button = new javax.swing.JButton();
+        DS_LopMon = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +95,21 @@ public class giaovu extends javax.swing.JFrame {
             }
         });
 
+        DSLop_Button.setText("Xem DS Lớp");
+        DSLop_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DSLop_ButtonMouseClicked(evt);
+            }
+        });
+
+        DS_LopMon.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        DS_LopMon.setText("DS Lớp-Môn");
+        DS_LopMon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DS_LopMonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,8 +122,11 @@ public class giaovu extends javax.swing.JFrame {
                     .addComponent(addSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Import_TKB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DK_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Huy_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Huy_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DSLop_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DS_LopMon, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +134,9 @@ public class giaovu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Import_DSSV)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Import_DSSV)
+                    .addComponent(DS_LopMon))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addSV)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -123,7 +145,9 @@ public class giaovu extends javax.swing.JFrame {
                 .addComponent(DK_Button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Huy_Button)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(DSLop_Button)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -245,6 +269,25 @@ public class giaovu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "MSSV không tồn tại","LỖI",2);
     }//GEN-LAST:event_Huy_ButtonMouseClicked
 
+    private void DSLop_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DSLop_ButtonMouseClicked
+        String MaLop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP:",1);
+        DSLOP dslop=new DSLOP(MaLop);
+        dslop.setVisible(true);
+    }//GEN-LAST:event_DSLop_ButtonMouseClicked
+
+    private void DS_LopMonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DS_LopMonMouseClicked
+        String MaLop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP:",1);
+        String MaMon=JOptionPane.showInputDialog(this,"MÃ MÔN: ","NHẬP MÃ MÔN:",1);
+        TkbId id=new TkbId(MaLop,MaMon);
+        if (TKBDAO.find(id)!=null)
+        {
+            DSLOP dslop=new DSLOP(MaLop,MaMon);
+            dslop.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(this, "LỚP KHÔNG TỒN TẠI","LỖI",2);
+         
+    }//GEN-LAST:event_DS_LopMonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -282,6 +325,8 @@ public class giaovu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DK_Button;
+    private javax.swing.JButton DSLop_Button;
+    private javax.swing.JButton DS_LopMon;
     private javax.swing.JButton Huy_Button;
     private javax.swing.JButton Import_DSSV;
     private javax.swing.JButton Import_TKB;

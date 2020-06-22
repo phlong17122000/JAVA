@@ -8,8 +8,11 @@ package DAO;
 
 import entities.LopDssv;
 import entities.LopDssvId;
+import entities.SinhVien;
 import java.io.Serializable;
+import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -18,6 +21,24 @@ import org.hibernate.Transaction;
  * @author Long
  */
 public class LOPDSSVDAO {
+     public static List<LopDssv> layDSSV_ID(LopDssvId ID)
+    {
+        List<LopDssv> ds=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            String hql;
+            hql = "select dssv from LopDssv dssv where dssv.id.malop='"+ID.getMalop()+"' AND dssv.id.mamon='"+ID.getMamon()+"'";
+            Query query=session.createQuery(hql);
+            ds=query.list();
+        } catch (HibernateException ex)
+        {
+            System.err.println(ex);
+        } finally{
+            session.close();
+        }
+        return ds;
+    }
      public static LopDssv find(LopDssvId ID)
     {
         LopDssv lopdssv=null;
