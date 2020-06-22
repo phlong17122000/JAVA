@@ -354,7 +354,15 @@ public class giaovu extends javax.swing.JFrame {
     }//GEN-LAST:event_Import_DiemMouseClicked
 
     private void Diem_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Diem_ButtonMouseClicked
-        // TODO add your handling code here:
+        String MaLop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP:",1);
+        String MaMon=JOptionPane.showInputDialog(this,"MÃ MÔN: ","NHẬP MÃ MÔN:",1);
+        TkbId id=new TkbId(MaLop,MaMon);
+        if (TKBDAO.find(id)!=null)
+        {
+            BANGDIEM bangdiem=new BANGDIEM(MaLop,MaMon);
+            bangdiem.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(this, "LỚP KHÔNG TỒN TẠI","LỖI",2);
     }//GEN-LAST:event_Diem_ButtonMouseClicked
 
     /**
