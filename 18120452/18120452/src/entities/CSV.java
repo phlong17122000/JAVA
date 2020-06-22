@@ -96,4 +96,34 @@ public class CSV {
         }
         return a;
     }
+    public Vector<LopDssv> readCsvFileDiem(String address,String MaLop,String MaMon)
+    {
+        BufferedReader br=null;
+        Vector<LopDssv> a = new Vector<LopDssv>();
+        try{
+            String line;
+            br =new BufferedReader(new FileReader(address));
+            line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                LopDssv temp;
+                ArrayList<String> chuoi = parseCsvLine(line);
+                LopDssvId Id=new LopDssvId(MaLop,MaMon,chuoi.get(1));
+                temp=new LopDssv(Id,Integer.valueOf(chuoi.get(3)),Integer.valueOf(chuoi.get(4)),Integer.valueOf(chuoi.get(5)),Double.valueOf(chuoi.get(6)));
+                a.addElement(temp);
+            }
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        } finally {
+            try{
+                if (br!=null)
+                    br.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();;
+            }
+        }
+        return a;
+    }
 }

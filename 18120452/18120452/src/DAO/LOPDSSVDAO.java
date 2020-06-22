@@ -53,6 +53,24 @@ public class LOPDSSVDAO {
         }
         return lopdssv;
     }
+     public boolean updateLOPDSSV(LopDssv lopdssv){
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        if (LOPDSSVDAO.find(lopdssv.getId()) == null){
+            return false;
+        }
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(lopdssv);
+            transaction.commit();
+        } catch (HibernateException ex){
+            transaction.rollback();
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return true;
+    }
     public boolean themLOPDSSV(LopDssv lopdssv){
         Session session=HibernateUtil.getSessionFactory().openSession();
         if (LOPDSSVDAO.find(lopdssv.getId()) != null){

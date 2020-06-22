@@ -35,7 +35,12 @@
                   <Component id="DSLop_Button" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="DS_LopMon" min="-2" pref="99" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="DS_LopMon" max="32767" attributes="0"/>
+                  <Component id="TKB" max="32767" attributes="0"/>
+                  <Component id="Import_Diem" max="32767" attributes="0"/>
+                  <Component id="Diem_Button" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -51,11 +56,20 @@
                   <Component id="DS_LopMon" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="addSV" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="addSV" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TKB" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="Import_TKB" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="Import_TKB" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Import_Diem" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="DK_Button" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="DK_Button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Diem_Button" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="Huy_Button" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -142,6 +156,30 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DS_LopMonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="TKB">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Xem TKB"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TKBMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Import_Diem">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Import &#x110;i&#x1ec3;m"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Import_DiemMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Diem_Button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Xem &#x110;i&#x1ec3;m"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Diem_ButtonMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
