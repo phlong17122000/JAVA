@@ -9,10 +9,12 @@ package project;
 import DAO.LOPDSSVDAO;
 import DAO.SVDAO;
 import DAO.TKBDAO;
+import DAO.TKDAO;
 import entities.CSV;
 import entities.LopDssv;
 import entities.LopDssvId;
 import entities.SinhVien;
+import entities.Tk;
 import entities.Tkb;
 import entities.TkbId;
 import java.util.List;
@@ -53,6 +55,7 @@ public class giaovu extends javax.swing.JFrame {
         Import_Diem = new javax.swing.JButton();
         Diem_Button = new javax.swing.JButton();
         SuaDiem_Button = new javax.swing.JButton();
+        LogOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,27 +145,35 @@ public class giaovu extends javax.swing.JFrame {
             }
         });
 
+        LogOut.setText("Đăng Xuất");
+        LogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LogOutMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Import_DSSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Import_TKB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DK_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Huy_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DSLop_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(DSLop_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Import_DSSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(DS_LopMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(TKB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Import_Diem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Diem_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SuaDiem_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(LogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SuaDiem_Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
@@ -191,7 +202,9 @@ public class giaovu extends javax.swing.JFrame {
                     .addComponent(Huy_Button)
                     .addComponent(SuaDiem_Button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(DSLop_Button)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DSLop_Button)
+                    .addComponent(LogOut))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -207,12 +220,20 @@ public class giaovu extends javax.swing.JFrame {
        if (Malop !=null && diachi !=null)
        {
             a=csv.readCsvFileDSSV(diachi);
-            for (int i=0;i<a.size();i++)
+            if (a.isEmpty()!=true)
             {
-                a.get(i).setMalop(Malop);
-                SVDAO svdao=new SVDAO();
-                boolean kq = svdao.themSV(a.get(i));
+                for (int i=0;i<a.size();i++)
+                {
+                    Tk tk=new Tk(a.get(i).getMssv(),a.get(i).getMssv());
+                    TKDAO tkdao=new TKDAO();
+                    boolean kq=tkdao.themTK(tk);
+                    a.get(i).setMalop(Malop);
+                    SVDAO svdao=new SVDAO();
+                    kq = svdao.themSV(a.get(i));
+                }
+                JOptionPane.showMessageDialog(this,"IMPORT DSSV THÀNH CÔNG","THÔNG BÁO",1);
             }
+            else JOptionPane.showMessageDialog(this, "FILE LỖI","LỖI",2);
        }
     }//GEN-LAST:event_Import_DSSVMouseClicked
 
@@ -235,10 +256,21 @@ public class giaovu extends javax.swing.JFrame {
             st.setCmnd(Cmnd);
             st.setSex(Sex);
             SVDAO svdao=new SVDAO();
+            Tk tk=new Tk(st.getMssv(),st.getMssv());
+            TKDAO tkdao=new TKDAO();
+           List <Tkb> dstkb=TKBDAO.layTKB_MaLop(Malop);
+           for (Tkb tkb:dstkb)
+           {
+               LopDssvId Id=new LopDssvId(Malop,tkb.getId().getMamon(),Mssv);
+               LopDssv lopdssv=new LopDssv(Id);
+               LOPDSSVDAO lopdssvdao=new LOPDSSVDAO();
+               boolean kq=lopdssvdao.themLOPDSSV(lopdssv);
+           }
            boolean kq = svdao.themSV(st);
-           JOptionPane.showMessageDialog(this, "THÊM SV THÀNH CÔNG");
+           kq=tkdao.themTK(tk);
+           JOptionPane.showMessageDialog(this, "THÊM SV THÀNH CÔNG","THÔNG BÁO",1);
         }
-        else JOptionPane.showMessageDialog(this, "THÊM SV THẤT BẠI");
+        else JOptionPane.showMessageDialog(this, "THÊM SV THẤT BẠI","LỖI",2);
  
     }//GEN-LAST:event_addSVMouseClicked
 
@@ -250,6 +282,8 @@ public class giaovu extends javax.swing.JFrame {
        if (Malop !=null && diachi !=null)
        {
             a=csv.readCsvFileTKB(diachi);
+             if (a.isEmpty()!=true)
+            {
             for (int i=0;i<a.size();i++)
             {
                 a.get(i).getId().setMalop(Malop);
@@ -268,6 +302,9 @@ public class giaovu extends javax.swing.JFrame {
                     boolean kq= lopdssvdao.themLOPDSSV(lopdssv);
                 }
             }
+            JOptionPane.showMessageDialog(this,"IMPORT TKB THÀNH CÔNG","THÔNG BÁO",1);
+            }
+            else JOptionPane.showMessageDialog(this, "FILE LỖI","LỖI",2);
        }
     }//GEN-LAST:event_Import_TKBMouseClicked
 
@@ -403,6 +440,12 @@ public class giaovu extends javax.swing.JFrame {
         else JOptionPane.showMessageDialog(this, "LỚP KHÔNG TỒN TẠI","LỖI",2);
     }//GEN-LAST:event_SuaDiem_ButtonMouseClicked
 
+    private void LogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogOutMouseClicked
+        DangNhap login=new DangNhap();
+        this.setVisible(false);
+        login.setVisible(true);
+    }//GEN-LAST:event_LogOutMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -447,6 +490,7 @@ public class giaovu extends javax.swing.JFrame {
     private javax.swing.JButton Import_DSSV;
     private javax.swing.JButton Import_Diem;
     private javax.swing.JButton Import_TKB;
+    private javax.swing.JButton LogOut;
     private javax.swing.JButton SuaDiem_Button;
     private javax.swing.JButton TKB;
     private javax.swing.JButton addSV;

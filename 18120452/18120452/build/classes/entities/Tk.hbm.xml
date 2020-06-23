@@ -5,11 +5,11 @@
 <hibernate-mapping>
     <class name="entities.Tk" table="TK" schema="dbo" catalog="QLSV">
         <id name="mssv" type="string">
-            <column name="MSSV" length="10" />
+            <column name="MSSV" length="20" />
             <generator class="assigned" />
         </id>
         <property name="mk" type="string">
-            <column name="MK" length="10" />
+            <column name="MK" length="20" />
         </property>
     </class>
 </hibernate-mapping>

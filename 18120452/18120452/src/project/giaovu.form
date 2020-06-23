@@ -25,14 +25,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jLabel1" alignment="0" pref="400" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="Import_DSSV" max="32767" attributes="0"/>
-                  <Component id="addSV" max="32767" attributes="0"/>
                   <Component id="Import_TKB" max="32767" attributes="0"/>
                   <Component id="DK_Button" max="32767" attributes="0"/>
                   <Component id="Huy_Button" max="32767" attributes="0"/>
-                  <Component id="DSLop_Button" max="32767" attributes="0"/>
+                  <Component id="DSLop_Button" alignment="1" max="32767" attributes="0"/>
+                  <Component id="addSV" max="32767" attributes="0"/>
+                  <Component id="Import_DSSV" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -40,7 +40,8 @@
                   <Component id="TKB" max="32767" attributes="0"/>
                   <Component id="Import_Diem" max="32767" attributes="0"/>
                   <Component id="Diem_Button" max="32767" attributes="0"/>
-                  <Component id="SuaDiem_Button" max="32767" attributes="0"/>
+                  <Component id="LogOut" max="32767" attributes="0"/>
+                  <Component id="SuaDiem_Button" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
@@ -77,7 +78,10 @@
                   <Component id="SuaDiem_Button" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="DSLop_Button" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="DSLop_Button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="LogOut" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="48" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -192,6 +196,14 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SuaDiem_ButtonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="LogOut">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng Xu&#x1ea5;t"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="LogOutMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
