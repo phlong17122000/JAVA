@@ -392,11 +392,16 @@ public class giaovu extends javax.swing.JFrame {
             CSV csv =new CSV();
             Vector<LopDssv> a=new Vector<LopDssv>();
             a=csv.readCsvFileDiem(diachi,MaLop,MaMon);
+            if (a.isEmpty()!=true)
+            {
             for (LopDssv ds:a)
             {
                 LOPDSSVDAO lopdssvdao=new LOPDSSVDAO();
                 boolean kq=lopdssvdao.updateLOPDSSV(ds);
             }
+            JOptionPane.showMessageDialog(this,"IMPORT ĐIỂM THÀNH CÔNG","THÔNG BÁO",1);
+            }
+            else JOptionPane.showMessageDialog(this, "FILE LỖI","LỖI",2);
         }
         else JOptionPane.showMessageDialog(this, "LỚP KHÔNG TỒN TẠI","LỖI",2);
     }//GEN-LAST:event_Import_DiemMouseClicked

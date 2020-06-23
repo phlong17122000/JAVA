@@ -6,18 +6,36 @@
 
 package project;
 
+import DAO.LOPDSSVDAO;
+import entities.LopDssv;
+import entities.LopDssvId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Long
  */
 public class Student extends javax.swing.JFrame {
+    private String mssv;
 
+    public String getMssv() {
+        return mssv;
+    }
+
+    public void setMssv(String mssv) {
+        this.mssv = mssv;
+    }
+    
     /**
      * Creates new form Student
      */
     public Student(String MSSV) {
         initComponents();
-        hello.setText("Xin Chào"+MSSV);
+        hello.setText("Xin Chào "+MSSV);
+        this.setMssv(MSSV);
     }
 
     /**
@@ -42,6 +60,11 @@ public class Student extends javax.swing.JFrame {
 
         XemDiem_Button.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         XemDiem_Button.setText("Xem Điểm");
+        XemDiem_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                XemDiem_ButtonMouseClicked(evt);
+            }
+        });
 
         Logout.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         Logout.setText("Đăng Xuất");
@@ -89,6 +112,30 @@ public class Student extends javax.swing.JFrame {
         this.setVisible(false);
         login.setVisible(true);
     }//GEN-LAST:event_LogoutMouseClicked
+
+    private void XemDiem_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XemDiem_ButtonMouseClicked
+        LopDssvId Id=new LopDssvId("","",this.getMssv());
+        List<LopDssv> lopdssv=LOPDSSVDAO.layDSSV_MSSV(Id);
+        ArrayList<String> dslop=new ArrayList<String>();
+        Vector<String> dsmon=new Vector<String>();
+        Vector<String> dsselection=new Vector<String>();
+        for(LopDssv ds:lopdssv)
+        {
+            dslop.add(ds.getId().getMalop());
+            dsmon.add(ds.getId().getMamon());
+            dsselection.add(ds.getId().getMalop().trim()+"-"+ds.getId().getMamon().trim());
+        }
+        Object[] selections=dsselection.toArray();
+        String choose= (String) JOptionPane.showInputDialog(this,"GIỚI TÍNH:","NHẬP SINH VIÊN",1,null,selections,selections[0]);
+        String[] word=choose.split("-");
+        for(LopDssv ds:lopdssv)
+        {
+            if (ds.getId().getMalop().contains(word[0])==true && ds.getId().getMamon().contains(word[1])==true)
+            {
+                JOptionPane.showMessageDialog(this,"Điểm GK: "+ds.getDgk()+". Điểm CK: "+ds.getDck()+". Điểm khác: "+ds.getDkhac()+". Điểm tổng: "+ds.getDtong()+".", "Điểm "+choose, 1);
+            }
+        }
+    }//GEN-LAST:event_XemDiem_ButtonMouseClicked
 
     /**
      * @param args the command line arguments

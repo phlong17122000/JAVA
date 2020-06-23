@@ -39,6 +39,24 @@ public class LOPDSSVDAO {
         }
         return ds;
     }
+      public static List<LopDssv> layDSSV_MSSV(LopDssvId ID)
+    {
+        List<LopDssv> ds=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            String hql;
+            hql = "select dssv from LopDssv dssv where dssv.id.mssv='"+ID.getMssv()+"'";
+            Query query=session.createQuery(hql);
+            ds=query.list();
+        } catch (HibernateException ex)
+        {
+            System.err.println(ex);
+        } finally{
+            session.close();
+        }
+        return ds;
+    }
      public static LopDssv find(LopDssvId ID)
     {
         LopDssv lopdssv=null;
