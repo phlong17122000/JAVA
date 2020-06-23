@@ -52,6 +52,7 @@ public class giaovu extends javax.swing.JFrame {
         TKB = new javax.swing.JButton();
         Import_Diem = new javax.swing.JButton();
         Diem_Button = new javax.swing.JButton();
+        SuaDiem_Button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,6 +135,13 @@ public class giaovu extends javax.swing.JFrame {
             }
         });
 
+        SuaDiem_Button.setText("Sửa Điểm");
+        SuaDiem_Button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SuaDiem_ButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,7 +161,8 @@ public class giaovu extends javax.swing.JFrame {
                     .addComponent(DS_LopMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(TKB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Import_Diem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Diem_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Diem_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SuaDiem_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
@@ -178,7 +187,9 @@ public class giaovu extends javax.swing.JFrame {
                     .addComponent(DK_Button)
                     .addComponent(Diem_Button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Huy_Button)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Huy_Button)
+                    .addComponent(SuaDiem_Button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(DSLop_Button)
                 .addContainerGap(48, Short.MAX_VALUE))
@@ -365,6 +376,33 @@ public class giaovu extends javax.swing.JFrame {
         else JOptionPane.showMessageDialog(this, "LỚP KHÔNG TỒN TẠI","LỖI",2);
     }//GEN-LAST:event_Diem_ButtonMouseClicked
 
+    private void SuaDiem_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuaDiem_ButtonMouseClicked
+        String MaLop=JOptionPane.showInputDialog(this,"LỚP: ","NHẬP MÃ LỚP:",1);
+        String MaMon=JOptionPane.showInputDialog(this,"MÃ MÔN: ","NHẬP MÃ MÔN:",1);
+        TkbId id=new TkbId(MaLop,MaMon);
+        if (TKBDAO.find(id)!=null)
+        {
+            String MSSV=JOptionPane.showInputDialog(this,"MSSV: ","NHẬP MSSV",1);
+            LopDssvId Id=new LopDssvId(MaLop,MaMon,MSSV);
+            if (LOPDSSVDAO.find(Id)!=null)
+            {
+               int DiemGK=Integer.valueOf(JOptionPane.showInputDialog(this,"NHẬP ĐIỂM GK:","NHẬP ĐIỂM",1));
+               int DiemCK=Integer.valueOf(JOptionPane.showInputDialog(this,"NHẬP ĐIỂM CK:","NHẬP ĐIỂM",1));
+               int DiemKhac=Integer.valueOf(JOptionPane.showInputDialog(this,"NHẬP ĐIỂM KHÁC:","NHẬP ĐIỂM",1));
+               double DiemTong=Double.valueOf(JOptionPane.showInputDialog(this,"NHẬP ĐIỂM TỔNG:","NHẬP ĐIỂM",1));
+               LopDssv lopdssv=new LopDssv(Id,DiemGK,DiemCK,DiemKhac,DiemTong);
+               LOPDSSVDAO lopdssvdao=new LOPDSSVDAO();
+               boolean kq=lopdssvdao.updateLOPDSSV(lopdssv);
+               JOptionPane.showMessageDialog(this, "Sữa điểm thành công","THÔNG BÁO",1);
+               
+            }
+            else
+            JOptionPane.showMessageDialog(this, "MSSV không tồn tại hoặc sinh viên không học môn này","LỖI",2);
+           
+        }
+        else JOptionPane.showMessageDialog(this, "LỚP KHÔNG TỒN TẠI","LỖI",2);
+    }//GEN-LAST:event_SuaDiem_ButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -409,6 +447,7 @@ public class giaovu extends javax.swing.JFrame {
     private javax.swing.JButton Import_DSSV;
     private javax.swing.JButton Import_Diem;
     private javax.swing.JButton Import_TKB;
+    private javax.swing.JButton SuaDiem_Button;
     private javax.swing.JButton TKB;
     private javax.swing.JButton addSV;
     private javax.swing.JLabel jLabel1;

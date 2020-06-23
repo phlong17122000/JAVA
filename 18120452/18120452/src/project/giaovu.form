@@ -40,6 +40,7 @@
                   <Component id="TKB" max="32767" attributes="0"/>
                   <Component id="Import_Diem" max="32767" attributes="0"/>
                   <Component id="Diem_Button" max="32767" attributes="0"/>
+                  <Component id="SuaDiem_Button" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
@@ -71,7 +72,10 @@
                   <Component id="Diem_Button" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="Huy_Button" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="Huy_Button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SuaDiem_Button" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="DSLop_Button" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="48" max="32767" attributes="0"/>
@@ -180,6 +184,14 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Diem_ButtonMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="SuaDiem_Button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="S&#x1eed;a &#x110;i&#x1ec3;m"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SuaDiem_ButtonMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
