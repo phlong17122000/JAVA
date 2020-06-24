@@ -40,7 +40,7 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         mk = new javax.swing.JPasswordField();
         Login = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        DOIMK = new javax.swing.JButton();
         tb = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,7 +70,13 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        DOIMK.setText("Đổi Mật Khẩu");
+        DOIMK.setToolTipText("");
+        DOIMK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DOIMKMouseClicked(evt);
+            }
+        });
 
         tb.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
         tb.setForeground(new java.awt.Color(255, 0, 0));
@@ -97,8 +103,8 @@ public class DangNhap extends javax.swing.JFrame {
                         .addGap(2, 2, 2)
                         .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                        .addComponent(DOIMK, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,8 +124,8 @@ public class DangNhap extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Login)
-                    .addComponent(jButton1))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(DOIMK))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,6 +159,12 @@ public class DangNhap extends javax.swing.JFrame {
         else
             tb.setText("Tài khoản hoặc mật khẩu không đúng");
     }//GEN-LAST:event_LoginMouseClicked
+
+    private void DOIMKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DOIMKMouseClicked
+        this.setVisible(false);
+        DOIMK doimk=new DOIMK();
+        doimk.setVisible(true);
+    }//GEN-LAST:event_DOIMKMouseClicked
 
     /**
      * @param args the command line arguments
@@ -190,8 +202,8 @@ public class DangNhap extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DOIMK;
     private javax.swing.JButton Login;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -39,7 +39,7 @@ public class TKDAO {
         Session session=HibernateUtil.getSessionFactory().openSession();
         if (TKDAO.find(tk.getMssv())!=null){
                search=(Tk) session.get(Tk.class,tk.getMssv());
-               if (search.getMk().startsWith(tk.getMk())==true)
+               if (search.getMk().trim().equals(tk.getMk())==true)
                {
                    return true;
                }
@@ -64,6 +64,24 @@ public class TKDAO {
         try {
             transaction = session.beginTransaction();
             session.save(tk);
+            transaction.commit();
+        } catch (HibernateException ex){
+            transaction.rollback();
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return true;
+    }
+    public boolean updateTk(Tk tk){
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        if (TKDAO.find(tk.getMssv()) == null){
+            return false;
+        }
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(tk);
             transaction.commit();
         } catch (HibernateException ex){
             transaction.rollback();
